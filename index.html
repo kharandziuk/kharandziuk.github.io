@@ -6,6 +6,16 @@
 <title>German drills</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+  #cheatsheet-content h1 { font-size: 1.25rem; font-weight: 600; margin-top: 0; }
+  #cheatsheet-content h2 { font-size: 1rem; font-weight: 600; margin-top: 1.5rem; }
+  #cheatsheet-content table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  #cheatsheet-content th, #cheatsheet-content td { border: 1px solid #e2e8f0; padding: 0.375rem 0.75rem; text-align: left; }
+  #cheatsheet-content th { background: #fff; font-weight: 500; }
+  #cheatsheet-content p { margin: 0.75rem 0; }
+  #cheatsheet-content ul { margin: 0.75rem 0; padding-left: 1.25rem; list-style: disc; }
+  #cheatsheet-content strong { font-weight: 600; }
+</style>
 </head>
 <body class="bg-slate-50 text-slate-900 antialiased">
 <main class="mx-auto max-w-2xl px-5 py-12">
@@ -22,159 +32,56 @@
     </div>
   </section>
 
-  <section id="session" class="mt-8 hidden">
-    <div id="app" class="space-y-10"></div>
-    <div id="controls" class="mt-12">
-      <button id="check" type="button"
-        class="rounded-lg bg-slate-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2">Check answers</button>
+  <section id="cheatsheet" class="mt-8 hidden">
+    <div id="cheatsheet-content" class="rounded-lg border border-slate-200 bg-white p-5 text-sm leading-relaxed text-slate-900"></div>
+    <p id="cheatsheet-error" class="mt-3 hidden text-sm text-rose-600"></p>
+    <div class="mt-6">
+      <button id="start-drills" type="button"
+        class="rounded-lg bg-slate-900 px-5 py-2 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2">Start drills</button>
     </div>
+  </section>
+
+  <section id="session" class="mt-8 hidden">
+    <div id="session-body">
+      <div id="app" class="space-y-10"></div>
+      <div id="controls" class="mt-12 flex flex-wrap items-center gap-4">
+        <p id="page-indicator" class="text-sm text-slate-600"></p>
+        <button id="check" type="button"
+          class="rounded-lg bg-slate-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2">Check answers</button>
+      </div>
+    </div>
+    <section id="summary" class="hidden space-y-8" aria-live="polite">
+      <h2 class="text-xl font-semibold tracking-tight">Session summary</h2>
+      <div class="space-y-3">
+        <dl id="summary-stats" class="grid gap-3 text-sm sm:grid-cols-3"></dl>
+        <p class="text-xs text-slate-500">Select all three cells in the row below, copy, and paste into a spreadsheet.</p>
+        <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+          <table id="summary-stats-copy" class="w-full min-w-[20rem] border-collapse font-mono text-sm tabular-nums text-slate-900">
+            <tbody>
+              <tr>
+                <td id="summary-copy-elapsed" class="border border-slate-200 px-3 py-2"></td>
+                <td id="summary-copy-pct" class="border border-slate-200 px-3 py-2"></td>
+                <td id="summary-copy-completed" class="border border-slate-200 px-3 py-2"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-sm font-medium text-slate-700">Mistakes</h3>
+        <ul id="summary-mistakes" class="mt-3 space-y-3 text-sm leading-relaxed"></ul>
+        <p id="summary-no-mistakes" class="mt-3 hidden text-sm text-slate-600">No mistakes.</p>
+      </div>
+    </section>
   </section>
 </main>
 
-<script>
-$(function () {
-  function parsePayload(raw) {
-    var data;
-    try {
-      data = JSON.parse(raw);
-    } catch (e) {
-      throw new Error('Invalid JSON: ' + e.message);
-    }
-    if (!data || !Array.isArray(data.items) || !data.items.length) {
-      throw new Error('Expected a root object with a non-empty "items" array.');
-    }
-    data.items.forEach(function (item, i) {
-      var at = 'items[' + i + ']';
-      if (!item || typeof item !== 'object' || Array.isArray(item)) {
-        throw new Error(at + ': must be an object.');
-      }
-      if (typeof item.id !== 'string' || !item.id.trim()) {
-        throw new Error(at + ': "id" must be a non-empty string.');
-      }
-      if (!Array.isArray(item.problem) || !item.problem.length) {
-        throw new Error(at + ': "problem" must be a non-empty array.');
-      }
-      if (!item.solution || typeof item.solution !== 'object' || Array.isArray(item.solution)) {
-        throw new Error(at + ': "solution" must be an object.');
-      }
-
-      var blankIds = {};
-      item.problem.forEach(function (fragment, j) {
-        var fragAt = at + '.problem[' + j + ']';
-        if (typeof fragment === 'string') {
-          return;
-        }
-        if (!fragment || typeof fragment !== 'object' || Array.isArray(fragment)) {
-          throw new Error(fragAt + ': must be a string or missingWord placeholder.');
-        }
-        if (fragment.type !== 'missingWord') {
-          throw new Error(fragAt + ': unknown placeholder type.');
-        }
-        if (typeof fragment.id !== 'string' || !fragment.id.trim()) {
-          throw new Error(fragAt + ': missingWord "id" must be a non-empty string.');
-        }
-        if (blankIds[fragment.id]) {
-          throw new Error(fragAt + ': duplicate blank id "' + fragment.id + '" within item.');
-        }
-        blankIds[fragment.id] = true;
-      });
-
-      Object.keys(item.solution).forEach(function (blankId) {
-        if (!blankIds[blankId]) {
-          throw new Error(at + ': solution key "' + blankId + '" has no matching blank in problem.');
-        }
-        if (typeof item.solution[blankId] !== 'string') {
-          throw new Error(at + ': solution["' + blankId + '"] must be a string.');
-        }
-      });
-
-      Object.keys(blankIds).forEach(function (blankId) {
-        if (!(blankId in item.solution)) {
-          throw new Error(at + ': blank "' + blankId + '" has no entry in solution.');
-        }
-      });
-    });
-    return data.items;
-  }
-
-  function renderItems(items) {
-    var $app = $('#app').empty();
-    items.forEach(function (item) {
-      var $line = $('<p>', { class: 'text-xl leading-relaxed', 'data-item-id': item.id });
-      item.problem.forEach(function (fragment) {
-        if (typeof fragment === 'string') {
-          $line.append($('<span>').text(fragment));
-          return;
-        }
-        var $wrap = $('<span>', { class: 'inline-flex items-baseline gap-1' });
-        $wrap.append($('<input>', {
-          type: 'text',
-          autocomplete: 'off',
-          autocapitalize: 'off',
-          spellcheck: false,
-          'data-blank-id': fragment.id,
-          class: 'blank w-24 min-w-[3rem] max-w-[12rem] border-b-2 border-slate-400 bg-transparent px-1 py-0 text-xl leading-relaxed focus:border-slate-900 focus:outline-none'
-        }));
-        $wrap.append($('<span>', {
-          class: 'correction hidden text-base text-emerald-700',
-          'aria-live': 'polite'
-        }));
-        $line.append($wrap);
-      });
-      $app.append($line);
-    });
-  }
-
-  function gradeAll() {
-    $('#app .blank').each(function () {
-      var $input = $(this);
-      var $wrap = $input.parent();
-      var $correction = $wrap.find('.correction');
-      var itemId = $input.closest('[data-item-id]').attr('data-item-id');
-      var blankId = $input.attr('data-blank-id');
-      var item = state.items.find(function (it) { return it.id === itemId; });
-      var expected = item.solution[blankId];
-      var user = $input.val();
-      var ok = user === expected;
-
-      $input.removeClass('border-emerald-600 border-rose-600 border-slate-400');
-      $correction.removeClass('hidden text-emerald-700 text-rose-600').empty();
-
-      if (ok) {
-        $input.addClass('border-emerald-600');
-        $correction.addClass('text-emerald-700').removeClass('hidden').text('✓');
-      } else {
-        $input.addClass('border-rose-600');
-        $correction
-          .addClass('text-rose-600')
-          .removeClass('hidden')
-          .text('→ ' + expected);
-      }
-    });
-    state.checked = true;
-  }
-
-  var state = { items: [], checked: false };
-
-  $('#load').on('click', function () {
-    var items;
-    try {
-      items = parsePayload($('#json').val());
-    } catch (e) {
-      $('#error').text(e.message);
-      return;
-    }
-    $('#error').text('');
-    $('#loader').addClass('hidden');
-    $('#session').removeClass('hidden');
-    state = { items: items, checked: false };
-    renderItems(items);
-  });
-
-  $('#check').on('click', function () {
-    gradeAll();
-  });
-});
-</script>
+<script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+<script src="js/data.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/transform.js"></script>
+<script src="js/state.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

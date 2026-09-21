@@ -1,0 +1,564 @@
+{
+  "exercises": [
+    [
+      "fill",
+      [
+        "Ich kaufe ",
+        " neues Fahrrad für ",
+        " Tochter. (ein, mein)"
+      ],
+      [
+        "ein",
+        "meine"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Wir helfen ",
+        " neuen Nachbarn bei ",
+        " Umzug. (unser, sein)"
+      ],
+      [
+        "unserem",
+        "seinem"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "",
+        " Ärztin erklärt ",
+        " Patienten ",
+        " Behandlung. (der, der, sein)"
+      ],
+      [
+        "Die",
+        "dem",
+        "seine"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Trotz ",
+        " starken Regens fand ",
+        " Veranstaltung statt. (der, der)"
+      ],
+      [
+        "des",
+        "die"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Kannst du ",
+        " Brief an ",
+        " Chef weiterleiten? (dieser, mein)"
+      ],
+      [
+        "diesen",
+        "meinen"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Sie spricht oft mit ",
+        " Schwester über ",
+        " neues Projekt. (ihr, ein)"
+      ],
+      [
+        "ihrer",
+        "ein"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "",
+        " Teilnehmer hatten ",
+        " Ausweise dabei. (kein, ihr)"
+      ],
+      [
+        "Keine",
+        "ihre"
+      ]
+    ],
+    [
+      "order",
+      "Ich nehme den Regenschirm mit, ",
+      ".",
+      [
+        "morgen",
+        "weil",
+        "regnen",
+        "es",
+        "soll"
+      ],
+      [
+        1,
+        3,
+        0,
+        2,
+        4
+      ]
+    ],
+    [
+      "order",
+      "Sie hat mir erzählt, ",
+      ".",
+      [
+        "im nächsten Jahr nach Wien",
+        "dass",
+        "möchte",
+        "sie",
+        "ziehen"
+      ],
+      [
+        1,
+        3,
+        0,
+        4,
+        2
+      ]
+    ],
+    [
+      "order",
+      "",
+      ".",
+      [
+        "half",
+        "wenig Zeit",
+        "Obwohl",
+        "er",
+        "uns beim Umzug",
+        "hatte,",
+        "er"
+      ],
+      [
+        2,
+        3,
+        1,
+        5,
+        0,
+        6,
+        4
+      ]
+    ],
+    [
+      "order",
+      "",
+      ".",
+      [
+        "noch einen Kaffee trinken",
+        "wir",
+        "Wenn",
+        "früher fertig",
+        "können",
+        "du",
+        "bist,"
+      ],
+      [
+        2,
+        5,
+        3,
+        6,
+        4,
+        1,
+        0
+      ]
+    ],
+    [
+      "order",
+      "",
+      ".",
+      [
+        "ich",
+        "Deshalb",
+        "heute mit dem Fahrrad",
+        "fahre",
+        "zur Arbeit"
+      ],
+      [
+        1,
+        3,
+        0,
+        2,
+        4
+      ]
+    ],
+    [
+      "order",
+      "Ich glaube, ",
+      ".",
+      [
+        "den Termin nicht",
+        "dass",
+        "können",
+        "er",
+        "verschieben",
+        "hat"
+      ],
+      [
+        1,
+        3,
+        0,
+        5,
+        4,
+        2
+      ]
+    ],
+    [
+      "order",
+      "Das ist der Kollege, ",
+      ".",
+      [
+        "mir gestern",
+        "der",
+        "geholfen",
+        "hat"
+      ],
+      [
+        1,
+        0,
+        2,
+        3
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Ich habe einen interessant",
+        " Artikel über die deutsch",
+        " Wirtschaft gelesen."
+      ],
+      [
+        "en",
+        "e"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Wir wohnen in einem ruhig",
+        " Viertel mit schön",
+        " Parks."
+      ],
+      [
+        "en",
+        "en"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Sie trägt heute ihr neu",
+        " Kleid und eine rot",
+        " Jacke."
+      ],
+      [
+        "es",
+        "e"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Frisch",
+        " Kaffee und warm",
+        " Brot stehen auf dem groß",
+        " Tisch."
+      ],
+      [
+        "er",
+        "es",
+        "en"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Wir besuchen unsere alt",
+        " Freunde in der klein",
+        " Stadt."
+      ],
+      [
+        "en",
+        "en"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Kein wichtig",
+        " Termin darf ohne triftig",
+        " Grund verschoben werden."
+      ],
+      [
+        "er",
+        "en"
+      ]
+    ],
+    [
+      "fill",
+      [
+        "Mit kalt",
+        " Wasser wäscht er das frisch",
+        " Gemüse."
+      ],
+      [
+        "em",
+        "e"
+      ]
+    ],
+    [
+      "order",
+      "Ich warte schon seit zehn Minuten ",
+      " den Bus.",
+      [
+        "für",
+        "auf",
+        "an"
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      "order",
+      "Sie nimmt nächste Woche ",
+      " einem Sprachkurs teil.",
+      [
+        "an",
+        "mit",
+        "über"
+      ],
+      [
+        0
+      ]
+    ],
+    [
+      "order",
+      "Mein Bruder interessiert sich sehr ",
+      " einen modernen Baustil.",
+      [
+        "über",
+        "für",
+        "an"
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      "order",
+      "Der Erfolg hängt stark ",
+      " einer guten Vorbereitung ab.",
+      [
+        "mit",
+        "auf",
+        "von"
+      ],
+      [
+        2
+      ]
+    ],
+    [
+      "order",
+      "Ich denke oft ",
+      " meinen ersten Schultag.",
+      [
+        "für",
+        "von",
+        "an"
+      ],
+      [
+        2
+      ]
+    ],
+    [
+      "order",
+      "Wir sprechen morgen ",
+      " dem neuen Kollegen.",
+      [
+        "über",
+        "mit",
+        "für"
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      "order",
+      "Sie bittet ihren Nachbarn ",
+      " einen kleinen Gefallen.",
+      [
+        "um",
+        "nach",
+        "für"
+      ],
+      [
+        0
+      ]
+    ],
+    [
+      "order",
+      "Er erinnert sich gern ",
+      " unseren letzten Urlaub.",
+      [
+        "auf",
+        "von",
+        "an"
+      ],
+      [
+        2
+      ]
+    ],
+    [
+      "order",
+      "Viele Bewohner leiden ",
+      " dem starken Verkehrslärm.",
+      [
+        "gegen",
+        "unter",
+        "an"
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      "order",
+      "Der Bericht besteht ",
+      " einem kurzen Text und zwei Grafiken.",
+      [
+        "von",
+        "aus",
+        "mit"
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      "assign",
+      [
+        [
+          "Wir diskutieren heute ",
+          " einen neuen Vorschlag."
+        ],
+        [
+          "Achte bitte ",
+          " den Verkehr."
+        ],
+        [
+          "Sie rechnet fest ",
+          " einer schnellen Antwort."
+        ],
+        [
+          "Dieses Kapitel gehört ",
+          " einem längeren Bericht."
+        ],
+        [
+          "Der Hausmeister warnt uns ",
+          " dem glatten Boden."
+        ]
+      ],
+      [
+        "mit",
+        "vor",
+        "über",
+        "zu",
+        "auf"
+      ],
+      [
+        2,
+        4,
+        0,
+        3,
+        1
+      ]
+    ],
+    [
+      "assign",
+      [
+        [
+          "Sie entscheidet sich ",
+          " den späteren Zug."
+        ],
+        [
+          "Die Anwohner protestieren ",
+          " den geplanten Parkplatz."
+        ],
+        [
+          "Ich erkundige mich ",
+          " dem nächsten Termin."
+        ],
+        [
+          "Der Kunde beschwert sich ",
+          " einen schlechten Service."
+        ],
+        [
+          "Kannst du mir ",
+          " einem schwierigen Formular helfen?"
+        ]
+      ],
+      [
+        "nach",
+        "bei",
+        "gegen",
+        "für",
+        "über"
+      ],
+      [
+        3,
+        2,
+        0,
+        4,
+        1
+      ]
+    ],
+    [
+      "assign",
+      [
+        [
+          "Wir arbeiten gerade ",
+          " einem neuen Konzept."
+        ],
+        [
+          "Das Unternehmen profitiert ",
+          " der hohen Nachfrage."
+        ],
+        [
+          "Sie kümmert sich ",
+          " ihren kranken Vater."
+        ],
+        [
+          "Die Initiative kämpft ",
+          " den weiteren Ausbau der Straße."
+        ],
+        [
+          "Der Reporter berichtet ",
+          " einen wichtigen Beschluss."
+        ]
+      ],
+      [
+        "gegen",
+        "von",
+        "über",
+        "an",
+        "um"
+      ],
+      [
+        3,
+        1,
+        4,
+        0,
+        2
+      ]
+    ]
+  ]
+}
