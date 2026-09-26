@@ -1,4 +1,4 @@
-/* global window, $, AppState, ExerciseValidation, ExerciseData, marked */
+/* global window, $, AppState, ExerciseValidation, ExerciseTransform, ExerciseData, marked */
 (function (global) {
   'use strict';
 
@@ -511,15 +511,14 @@
     bindWordOrderInteractions($('#app'));
 
     $('#load').on('click', function () {
-      var exercises;
+      var uiPages;
       try {
-        exercises = ExerciseValidation.parsePayload($('#json').val());
+        uiPages = ExerciseTransform.parseAndTransform($('#json').val());
       } catch (e) {
         $('#error').text(e.message);
         return;
       }
       $('#error').text('');
-      var uiPages = ExerciseTransform.transformExercises(exercises);
       AppState.initSession(uiPages);
       showCheatsheet();
     });
